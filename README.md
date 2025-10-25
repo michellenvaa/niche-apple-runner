@@ -19,12 +19,22 @@ A brainrot-themed endless runner featuring the iconic "niche apple" meme!
   - 💙 Huggy Wuggy (blue furry terror)
 
 ## How to Play
+
+### Desktop/Laptop:
 1. Click **START GAME** to begin
 2. Use **LEFT** and **RIGHT ARROW KEYS** to switch lanes
 3. Press **SPACEBAR** to pause/unpause
 4. Collect **6s** (60 points) and **7s** (70 points)
 5. Avoid scary brainrot meme obstacles!
 6. Try to get the highest score!
+
+### Mobile/Tablet:
+1. Tap **START GAME** to begin
+2. Use the **← and → buttons** at the bottom to switch lanes
+3. **Swipe left/right** on the screen to move (alternative control)
+4. Tap the **⏸ button** in top right to pause
+5. The game automatically scales to your screen size!
+6. Works in both portrait and landscape modes
 
 ## Setup
 

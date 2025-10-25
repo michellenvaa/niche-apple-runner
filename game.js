@@ -1198,6 +1198,81 @@ document.getElementById('musicControl').addEventListener('click', () => {
     }
 });
 
+// Mobile touch controls
+document.getElementById('leftBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    if (game.running && !game.paused && player) {
+        player.moveLeft();
+    }
+});
+
+document.getElementById('rightBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    if (game.running && !game.paused && player) {
+        player.moveRight();
+    }
+});
+
+// Mobile pause button
+document.getElementById('pauseBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    if (game.running) {
+        game.paused = !game.paused;
+        
+        const bgMusic = document.getElementById('bgMusic');
+        if (bgMusic) {
+            if (game.paused) {
+                bgMusic.pause();
+            } else {
+                bgMusic.play().catch(e => console.log('Music play error:', e));
+            }
+        }
+    }
+});
+
+// Touch support for mobile controls
+document.getElementById('leftBtn').addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    if (game.running && !game.paused && player) {
+        player.moveLeft();
+    }
+});
+
+document.getElementById('rightBtn').addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    if (game.running && !game.paused && player) {
+        player.moveRight();
+    }
+});
+
+// Swipe detection for alternative mobile control
+let touchStartX = 0;
+let touchEndX = 0;
+
+canvas.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+canvas.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+}, { passive: true });
+
+function handleSwipe() {
+    const swipeThreshold = 50;
+    const diff = touchStartX - touchEndX;
+    
+    if (Math.abs(diff) > swipeThreshold && game.running && !game.paused && player) {
+        if (diff > 0) {
+            // Swiped left
+            player.moveLeft();
+        } else {
+            // Swiped right
+            player.moveRight();
+        }
+    }
+}
+
 // Show start overlay initially
 document.getElementById('startOverlay').style.display = 'flex';
 

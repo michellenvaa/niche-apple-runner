@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fiend Runner - Quake Edition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Niche Apple Runner</title>
     <style>
         * {
             margin: 0;
@@ -19,17 +19,35 @@
             min-height: 100vh;
             font-family: 'Courier New', monospace;
             overflow: hidden;
+            margin: 0;
+            padding: 0;
         }
 
         #gameContainer {
             position: relative;
             box-shadow: 0 0 50px rgba(139, 0, 0, 0.8);
+            max-width: 100vw;
+            max-height: 100vh;
         }
 
         #gameCanvas {
             display: block;
             background: #2a1a1a;
             border: 4px solid #4a0000;
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 850px) {
+            #gameCanvas {
+                width: 100vw;
+                height: auto;
+            }
+            
+            #gameContainer {
+                width: 100%;
+            }
         }
 
         #ui {
@@ -99,6 +117,122 @@
             text-align: center;
             font-size: 16px;
             opacity: 0.8;
+        }
+
+        /* Touch controls for mobile */
+        #mobileControls {
+            position: absolute;
+            bottom: 100px;
+            left: 0;
+            right: 0;
+            display: none;
+            justify-content: space-around;
+            padding: 0 20px;
+            z-index: 100;
+        }
+
+        .mobileBtn {
+            width: 80px;
+            height: 80px;
+            background: rgba(139, 0, 0, 0.8);
+            border: 3px solid #ff6600;
+            border-radius: 50%;
+            color: #ff6600;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            transition: all 0.1s;
+        }
+
+        .mobileBtn:active {
+            background: #ff6600;
+            color: #000;
+            transform: scale(0.95);
+        }
+
+        #pauseBtn {
+            position: absolute;
+            top: 80px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: rgba(139, 0, 0, 0.8);
+            border: 3px solid #ff6600;
+            border-radius: 10px;
+            color: #ff6600;
+            font-size: 24px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            z-index: 100;
+        }
+
+        #pauseBtn:active {
+            background: #ff6600;
+            color: #000;
+        }
+
+        /* Show mobile controls on small screens */
+        @media (max-width: 850px) {
+            #mobileControls {
+                display: flex;
+            }
+            
+            #pauseBtn {
+                display: flex;
+            }
+
+            #instructions {
+                font-size: 12px;
+                bottom: 10px;
+            }
+
+            #musicControl {
+                top: 140px;
+                right: 10px;
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+
+            #musicNote {
+                top: 10px;
+                right: 10px;
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            #powerUpDisplay {
+                bottom: 200px !important;
+                left: 10px !important;
+                font-size: 14px !important;
+            }
+        }
+
+        /* Landscape mobile adjustments */
+        @media (max-width: 850px) and (orientation: landscape) {
+            #mobileControls {
+                bottom: 20px;
+            }
+
+            .mobileBtn {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+
+            #pauseBtn {
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
         }
 
         #musicNote {
@@ -214,10 +348,29 @@
             <button id="restartBtn">RESTART</button>
         </div>
         <div id="instructions">
-            USE ARROW KEYS ← → TO MOVE • SPACE TO PAUSE<br>
+            <span class="desktop-only">USE ARROW KEYS ← → TO MOVE • SPACE TO PAUSE<br></span>
+            <span class="mobile-only">TAP BUTTONS TO MOVE • TAP ⏸ TO PAUSE<br></span>
             COLLECT 6s AND 7s • AVOID BRAINROT MEMES
         </div>
+        
+        <!-- Mobile Controls -->
+        <div id="mobileControls">
+            <button class="mobileBtn" id="leftBtn">←</button>
+            <button class="mobileBtn" id="rightBtn">→</button>
+        </div>
+        
+        <button id="pauseBtn">⏸</button>
     </div>
+    
+    <style>
+        .desktop-only { display: inline; }
+        .mobile-only { display: none; }
+        
+        @media (max-width: 850px) {
+            .desktop-only { display: none; }
+            .mobile-only { display: inline; }
+        }
+    </style>
     <script src="game.js"></script>
 </body>
 </html>
